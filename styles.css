@@ -905,4 +905,101 @@ h1, h2, h3, h4, h5, h6 {
 .status-badge.suspended {
     background: rgba(231, 76, 60, 0.1);
     color: #e74c3c;
+}
+
+/* OTP Modal Styles */
+.otp-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+}
+
+.otp-message {
+    text-align: center;
+    color: var(--text-light);
+    margin: 1rem 0;
+}
+
+.otp-input-group {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 2rem 0;
+}
+
+.otp-digit {
+    width: 45px;
+    height: 45px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.otp-digit:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.otp-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.verify-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.verify-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.resend-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.resend-btn {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-weight: 500;
+    padding: 5px 10px;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.resend-btn:not(:disabled) {
+    opacity: 1;
+}
+
+.resend-btn:not(:disabled):hover {
+    text-decoration: underline;
+}
+
+#otpTimer {
+    color: var(--text-light);
+    font-size: 0.9rem;
 } 

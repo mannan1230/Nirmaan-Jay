@@ -193,13 +193,6 @@ function submitAdminRegistration(event) {
     showLogin();
 }
 
-function submitCustomerRegistration(event) {
-    event.preventDefault();
-    // Here you would typically send the data to your backend
-    alert('Registration successful! You can now login with your credentials.');
-    showLogin();
-}
-
 // Add this to handle file upload display
 document.getElementById('licensePhoto')?.addEventListener('change', function(e) {
     const fileName = e.target.files[0]?.name || 'No file chosen';
@@ -257,4 +250,122 @@ window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = 'none';
     }
-} 
+}
+
+// Add these variables at the top of your file
+let otpTimer;
+const OTP_TIMEOUT = 30;
+let registrationData = null;
+
+// Update the customer registration function
+function submitCustomerRegistration(event) {
+    event.preventDefault();
+    const form = event.target;
+    
+    // Store the registration data
+    registrationData = {
+        firstName: form.querySelector('input[type="text"]').value,
+        lastName: form.querySelectorAll('input[type="text"]')[1].value,
+        email: form.querySelector('input[type="email"]').value,
+        username: form.querySelectorAll('input[type="text"]')[2].value,
+        password: form.querySelector('input[type="password"]').value
+    };
+
+    // Show OTP modal and start timer
+    document.getElementById('otpModal').style.display = 'block';
+    startOtpTimer();
+    
+    // Simulate sending OTP (replace with actual API call)
+    console.log('Sending OTP to:', registrationData.email);
+}
+
+function startOtpTimer() {
+    let timeLeft = OTP_TIMEOUT;
+    const timerDisplay = document.getElementById('timerCount');
+    const resendButton = document.getElementById('resendOtpBtn');
+    
+    resendButton.disabled = true;
+    document.getElementById('otpTimer').style.display = 'block';
+    
+    clearInterval(otpTimer);
+    otpTimer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = timeLeft;
+        
+        if (timeLeft <= 0) {
+            clearInterval(otpTimer);
+            document.getElementById('otpTimer').style.display = 'none';
+            resendButton.disabled = false;
+        }
+    }, 1000);
+}
+
+function resendOTP() {
+    // Simulate resending OTP
+    console.log('Resending OTP to:', registrationData.email);
+    startOtpTimer();
+}
+
+function verifyOTP() {
+    const otpInputs = document.querySelectorAll('.otp-digit');
+    const otp = Array.from(otpInputs).map(input => input.value).join('');
+    
+    if (otp.length === 6) {
+        // Simulate OTP verification (replace with actual API call)
+        console.log('Verifying OTP:', otp);
+        
+        // Clear timer and close modal
+        clearInterval(otpTimer);
+        document.getElementById('otpModal').style.display = 'none';
+        
+        // Clear registration data
+        registrationData = null;
+        
+        // Show success message and redirect to login
+        alert('Registration successful! You can now login with your credentials.');
+        showLogin();
+    } else {
+        alert('Please enter a valid 6-digit OTP');
+    }
+}
+
+// Add OTP input handling
+document.addEventListener('DOMContentLoaded', function() {
+    const otpInputs = document.querySelectorAll('.otp-digit');
+    
+    otpInputs.forEach((input, index) => {
+        // Handle input
+        input.addEventListener('input', (e) => {
+            if (e.target.value) {
+                if (index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            }
+        });
+        
+        // Handle backspace
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+        
+        // Handle paste
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const paste = e.clipboardData.getData('text');
+            const digits = paste.match(/\d/g);
+            
+            if (digits) {
+                otpInputs.forEach((input, i) => {
+                    if (digits[i]) {
+                        input.value = digits[i];
+                        if (i < otpInputs.length - 1) {
+                            otpInputs[i + 1].focus();
+                        }
+                    }
+                });
+            }
+        });
+    });
+}); 
