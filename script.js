@@ -4,11 +4,11 @@ function login() {
     const password = document.getElementById('password').value;
 
     if (username && password) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.querySelector('.superadmin-login-btn').style.display = 'none';
         if (userType === 'admin') {
-            document.getElementById('loginSection').style.display = 'none';
             document.getElementById('adminDashboard').style.display = 'block';
         } else {
-            document.getElementById('loginSection').style.display = 'none';
             document.getElementById('userDashboard').style.display = 'block';
             initializeMap();
         }
@@ -21,8 +21,8 @@ function logout() {
     document.getElementById('loginSection').style.display = 'flex';
     document.getElementById('adminDashboard').style.display = 'none';
     document.getElementById('userDashboard').style.display = 'none';
-    document.getElementById('pickupTable').style.display = 'none';
-    document.getElementById('storageDetails').style.display = 'none';
+    document.getElementById('superAdminDashboard').style.display = 'none';
+    document.querySelector('.superadmin-login-btn').style.display = 'block';
 }
 
 function showPickupRequests() {
@@ -171,6 +171,7 @@ function submitRequest(event) {
 function showRegistration() {
     const userType = document.querySelector('input[name="userType"]:checked').value;
     document.getElementById('loginSection').style.display = 'none';
+    document.querySelector('.superadmin-login-btn').style.display = 'none';
     if (userType === 'admin') {
         document.getElementById('adminRegistration').style.display = 'flex';
     } else {
@@ -182,6 +183,7 @@ function showLogin() {
     document.getElementById('adminRegistration').style.display = 'none';
     document.getElementById('customerRegistration').style.display = 'none';
     document.getElementById('loginSection').style.display = 'flex';
+    document.querySelector('.superadmin-login-btn').style.display = 'block';
 }
 
 function submitAdminRegistration(event) {
@@ -202,4 +204,57 @@ function submitCustomerRegistration(event) {
 document.getElementById('licensePhoto')?.addEventListener('change', function(e) {
     const fileName = e.target.files[0]?.name || 'No file chosen';
     e.target.nextElementSibling.querySelector('.upload-text').textContent = fileName;
-}); 
+});
+
+// Add these functions at the end of your script.js file
+
+function showSuperAdminLogin() {
+    document.getElementById('superAdminLoginModal').style.display = 'block';
+}
+
+function closeSuperAdminLogin() {
+    document.getElementById('superAdminLoginModal').style.display = 'none';
+}
+
+function loginSuperAdmin() {
+    const username = document.getElementById('superAdminUsername').value;
+    const password = document.getElementById('superAdminPassword').value;
+
+    if (username === '12345678' && password === '12345678') {
+        document.getElementById('superAdminLoginModal').style.display = 'none';
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('superAdminDashboard').style.display = 'block';
+        document.querySelector('.superadmin-login-btn').style.display = 'none';
+    } else {
+        alert('Invalid credentials');
+    }
+}
+
+function handleRequest(action, licenseNo) {
+    const message = action === 'approve' ? 
+        'Cold Storage approved and added to the platform' : 
+        'Cold Storage registration rejected';
+    alert(`${message} (License: ${licenseNo})`);
+    // Here you would typically make an API call to update the status
+}
+
+function toggleStorageStatus(licenseNo) {
+    const btn = event.target;
+    const currentStatus = btn.textContent;
+    const newStatus = currentStatus === 'Suspend' ? 'Activate' : 'Suspend';
+    btn.textContent = newStatus;
+    
+    const statusCell = btn.closest('tr').querySelector('.status-badge');
+    statusCell.textContent = currentStatus === 'Suspend' ? 'Suspended' : 'Active';
+    statusCell.className = `status-badge ${currentStatus === 'Suspend' ? 'suspended' : 'active'}`;
+    
+    // Here you would typically make an API call to update the status
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('superAdminLoginModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+} 

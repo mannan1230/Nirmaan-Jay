@@ -750,4 +750,159 @@ h1, h2, h3, h4, h5, h6 {
     .alert-cards {
         grid-template-columns: 1fr;
     }
+}
+
+/* Update SuperAdmin Styles */
+.superadmin-login-btn {
+    position: absolute;  /* Changed from fixed to absolute */
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.superadmin-login-btn:hover {
+    opacity: 1;
+}
+
+.superadmin-login-btn button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Updated for better visibility */
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;  /* Changed to white for better visibility on login background */
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.superadmin-login-btn button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.superadmin-login-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Admin Sections Styles */
+.admin-sections {
+    padding: 2rem;
+    display: grid;
+    gap: 2rem;
+}
+
+.admin-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+}
+
+.request-cards {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.request-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: var(--secondary-color);
+}
+
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.request-date {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.request-details {
+    margin-bottom: 1rem;
+}
+
+.request-details p {
+    margin: 0.5rem 0;
+}
+
+.request-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.approve-btn, .reject-btn, .suspend-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.approve-btn {
+    background: var(--success-color);
+    color: white;
+}
+
+.reject-btn, .suspend-btn {
+    background: var(--error-color);
+    color: white;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.status-badge.active {
+    background: rgba(46, 204, 113, 0.1);
+    color: #2ecc71;
+}
+
+.status-badge.suspended {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
 } 

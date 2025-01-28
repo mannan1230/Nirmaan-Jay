@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="superadmin-login-btn">
+        <button onclick="showSuperAdminLogin()">SuperAdmin</button>
+    </div>
+
     <div class="login-container" id="loginSection">
         <h1>Cold Storage Management</h1>
         <div class="login-box">
@@ -346,6 +350,99 @@
                 </div>
                 <button type="submit">Register</button>
             </form>
+        </div>
+    </div>
+
+    <div class="superadmin-login-modal" id="superAdminLoginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeSuperAdminLogin()">&times;</span>
+            <h2>SuperAdmin Login</h2>
+            <div class="form-group">
+                <input type="text" id="superAdminUsername" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" id="superAdminPassword" placeholder="Password">
+            </div>
+            <button onclick="loginSuperAdmin()">Login</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container" id="superAdminDashboard" style="display: none;">
+        <nav>
+            <h2>SuperAdmin Dashboard</h2>
+            <button onclick="logout()">Logout</button>
+        </nav>
+        
+        <div class="admin-sections">
+            <div class="admin-section">
+                <h3>Cold Storage Registration Requests</h3>
+                <div class="request-cards" id="coldStorageRequests">
+                    <div class="request-card">
+                        <div class="request-header">
+                            <h4>Central Cold Storage</h4>
+                            <span class="request-date">2024-01-25</span>
+                        </div>
+                        <div class="request-details">
+                            <p><strong>Company:</strong> Central Storage Ltd.</p>
+                            <p><strong>License No:</strong> CSL123456</p>
+                            <p><strong>Email:</strong> contact@centralcold.com</p>
+                            <p><strong>Location:</strong> Bangalore Central</p>
+                        </div>
+                        <div class="request-actions">
+                            <button class="approve-btn" onclick="handleRequest('approve', 'CSL123456')">Approve</button>
+                            <button class="reject-btn" onclick="handleRequest('reject', 'CSL123456')">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>Registered Customers</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Join Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersList">
+                        <tr>
+                            <td>John Doe</td>
+                            <td>john@example.com</td>
+                            <td>2024-01-20</td>
+                            <td><span class="status-badge active">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <h3>Registered Cold Storages</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>License No</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coldStoragesList">
+                        <tr>
+                            <td>Metro Cold Storage</td>
+                            <td>MCS789012</td>
+                            <td>Bangalore East</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>
+                                <button class="suspend-btn" onclick="toggleStorageStatus('MCS789012')">Suspend</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
