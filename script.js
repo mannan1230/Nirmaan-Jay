@@ -188,9 +188,49 @@ function showLogin() {
 
 function submitAdminRegistration(event) {
     event.preventDefault();
-    // Here you would typically send the data to your backend
+    const form = event.target;
+    
+    // Collect form data
+    const formData = {
+        firstName: form.querySelector('[name="firstName"]').value,
+        lastName: form.querySelector('[name="lastName"]').value,
+        email: form.querySelector('[name="email"]').value,
+        companyName: form.querySelector('[name="companyName"]').value,
+        licenseNumber: form.querySelector('[name="licenseNumber"]').value
+    };
+    
+    // Here you would typically send this data to your backend
+    // For now, we'll simulate adding it to the superadmin dashboard
+    const requestCard = createRequestCard(formData);
+    document.getElementById('coldStorageRequests').appendChild(requestCard);
+    
     alert('Your registration has been submitted for verification. You will receive login credentials via email once approved.');
     showLogin();
+}
+
+// Helper function to create request card
+function createRequestCard(data) {
+    const card = document.createElement('div');
+    card.className = 'request-card';
+    card.dataset.license = data.licenseNumber;
+    
+    card.innerHTML = `
+        <div class="request-header">
+            <h4>${data.companyName}</h4>
+            <span class="request-date">${new Date().toISOString().split('T')[0]}</span>
+        </div>
+        <div class="request-details">
+            <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
+            <p><strong>License No:</strong> ${data.licenseNumber}</p>
+            <p data-email="${data.email}"><strong>Email:</strong> ${data.email}</p>
+        </div>
+        <div class="request-actions">
+            <button class="approve-btn" onclick="handleRequest('approve', '${data.licenseNumber}')">Approve</button>
+            <button class="reject-btn" onclick="handleRequest('reject', '${data.licenseNumber}')">Reject</button>
+        </div>
+    `;
+    
+    return card;
 }
 
 // Add this to handle file upload display
@@ -224,11 +264,33 @@ function loginSuperAdmin() {
 }
 
 function handleRequest(action, licenseNo) {
-    const message = action === 'approve' ? 
-        'Cold Storage approved and added to the platform' : 
-        'Cold Storage registration rejected';
-    alert(`${message} (License: ${licenseNo})`);
-    // Here you would typically make an API call to update the status
+    if (action === 'approve') {
+        // Get the request details from the card
+        const requestCard = document.querySelector(`[data-license="${licenseNo}"]`);
+        const email = requestCard.querySelector('[data-email]').dataset.email;
+        
+        // Generate credentials
+        const credentials = generateCredentials();
+        
+        // Simulate sending email
+        console.log(`Sending credentials to ${email}:`, credentials);
+        
+        alert(`Cold Storage approved and added to the platform.
+        Username: ${credentials.username}
+        Password: ${credentials.password}
+        An email has been sent to ${email} with these credentials.`);
+        
+        // Here you would typically make an API call to:
+        // 1. Save the credentials in your database
+        // 2. Send the email
+        // 3. Update the request status
+    } else {
+        alert(`Cold Storage registration rejected (License: ${licenseNo})`);
+    }
+    
+    // Remove the request card from the dashboard
+    const requestCard = document.querySelector(`[data-license="${licenseNo}"]`);
+    requestCard.remove();
 }
 
 function toggleStorageStatus(licenseNo) {
@@ -368,4 +430,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-}); 
+});
+
+// Add this function to generate random credentials
+function generateCredentials() {
+    const username = 'admin_' + Math.random().toString(36).substr(2, 8);
+    const password = Math.random().toString(36).substr(2, 12);
+    return { username, password };
+} 

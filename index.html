@@ -280,36 +280,41 @@
             <h2>Cold Storage Admin Registration</h2>
             <button class="back-button" onclick="showLogin()">← Back to Login</button>
             <form onsubmit="submitAdminRegistration(event)" class="registration-form">
-                <div class="form-row">
+                <div class="form-section personal-info">
+                    <h3>Personal Information</h3>
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" required>
+                        <input type="text" name="firstName" required>
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" required>
+                        <input type="text" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Company Name</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Cold Storage License Number</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Upload License Photo</label>
-                    <div class="file-upload">
-                        <input type="file" id="licensePhoto" accept="image/*" required>
-                        <label for="licensePhoto" class="file-upload-label">
-                            <span class="upload-icon">📎</span>
-                            <span class="upload-text">Choose File</span>
-                        </label>
+
+                <div class="form-section business-info">
+                    <h3>Business Information</h3>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" name="companyName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cold Storage License Number</label>
+                        <input type="text" name="licenseNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload License Photo</label>
+                        <div class="file-upload">
+                            <input type="file" id="licensePhoto" accept="image/*" required>
+                            <label for="licensePhoto" class="file-upload-label">
+                                <span class="upload-icon">📎</span>
+                                <span class="upload-text">Choose File</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <button type="submit">Submit for Verification</button>
@@ -322,31 +327,27 @@
             <h2>Customer Registration</h2>
             <button class="back-button" onclick="showLogin()">← Back to Login</button>
             <form onsubmit="submitCustomerRegistration(event)" class="registration-form">
-                <div class="form-row">
+                <div class="form-section">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" required>
+                        <input type="text" name="firstName" required>
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" required>
+                        <input type="text" name="lastName" required>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" required>
-                </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" required>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required>
+                    </div>
                 </div>
                 <button type="submit">Register</button>
             </form>
